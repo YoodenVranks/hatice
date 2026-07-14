@@ -2,188 +2,163 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>22 October 2025</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>22.10.2025</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-background:#000;
-overflow:hidden;
-font-family:'Cormorant Garamond',serif;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
 }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  color: white;
 }
 
-.container{
-text-align:center;
-opacity:0;
-animation:fade 3s forwards;
-animation-delay:2s;
-padding:25px;
+.sky {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.15),
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.45)
+    ),
+    url("62C97575-0098-4D78-90DD-D067FC1A53A6.png");
+
+  background-size: cover;
+  background-position: center;
+  animation: appear 4s ease forwards, drift 25s ease-in-out infinite alternate;
 }
 
-h1{
-font-size:42px;
-font-weight:300;
-letter-spacing:4px;
+.content {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 25px;
+
+  opacity: 0;
+  animation: reveal 3s ease 2s forwards;
 }
 
-h2{
-margin-top:10px;
-font-size:18px;
-font-weight:300;
-opacity:.8;
-letter-spacing:3px;
+.date {
+  font-size: clamp(42px, 11vw, 72px);
+  font-weight: 400;
+  letter-spacing: 7px;
+  white-space: nowrap;
+  text-shadow: 0 2px 25px #000;
 }
 
-.coord{
-margin-top:35px;
-font-size:18px;
-opacity:.65;
-letter-spacing:2px;
+.line {
+  width: 45px;
+  height: 1px;
+  background: rgba(255,255,255,.7);
+  margin: 24px 0;
 }
 
-button{
-margin-top:45px;
-padding:14px 28px;
-background:transparent;
-border:1px solid white;
-color:white;
-font-size:16px;
-letter-spacing:2px;
-cursor:pointer;
-transition:.4s;
+.text {
+  font-size: clamp(17px, 4.5vw, 25px);
+  letter-spacing: 4px;
+  font-style: italic;
+  opacity: .9;
+  text-shadow: 0 2px 15px #000;
 }
 
-button:hover{
-background:white;
-color:black;
+.coordinates {
+  margin-top: 35px;
+  font-size: 15px;
+  letter-spacing: 3px;
+  opacity: .7;
+  text-shadow: 0 2px 12px #000;
 }
 
-@keyframes fade{
-to{
-opacity:1;
-}
+.hint {
+  position: fixed;
+  bottom: 42px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  opacity: 0;
+
+  animation: reveal 2s ease 4s forwards;
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
 </style>
-
 </head>
 
 <body>
 
-<canvas id="stars"></canvas>
+<div class="sky"></div>
 
-<div class="container">
+<div class="content">
+  <div class="date">22.10.2025</div>
 
-<h1>22 October 2025</h1>
+  <div class="line"></div>
 
-<h2>The Night Everything Began</h2>
+  <div class="text">
+    The Night Everything Began
+  </div>
 
-<div class="coord">
-
-39.6604° N · 27.9101° E
-
+  <div class="coordinates">
+    39.6604° N · 27.9101° E
+  </div>
 </div>
 
-<button onclick="window.open('https://open.spotify.com/search/Jest%20Oldu','_blank')">
-
-Begin
-
-</button>
-
+<div class="hint">
+  SOME NIGHTS ARE NEVER FORGOTTEN
 </div>
-
-<script>
-
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let stars=[];
-
-for(let i=0;i<180;i++){
-
-stars.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*1.7,
-
-a:Math.random(),
-
-d:Math.random()*0.02
-
-});
-
-}
-
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="white";
-
-stars.forEach(s=>{
-
-ctx.globalAlpha=s.a;
-
-ctx.beginPath();
-
-ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-
-ctx.fill();
-
-s.a+=s.d;
-
-if(s.a>=1||s.a<=0){
-
-s.d=-s.d;
-
-}
-
-});
-
-requestAnimationFrame(draw);
-
-}
-
-draw();
-
-window.onresize=()=>{
-
-canvas.width=window.innerWidth;
-
-canvas.height=window.innerHeight;
-
-}
-
-</script>
 
 </body>
 </html>
